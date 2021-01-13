@@ -3,6 +3,8 @@ package com.sound.wave.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -11,10 +13,18 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @NotEmpty(message = "please enter username")
+    @Size(min = 2, max = 20, message = "Username length from 2 to 20 characters")
     private String username;
+    @NotEmpty(message = "please enter password")
     private String password;
     private String phoneNumber;
+    private String fullName;
+    private String address;
+    private String email;
+    private String avatar;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
 
 }
