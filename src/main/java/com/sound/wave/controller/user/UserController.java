@@ -24,7 +24,7 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PostMapping("/")
+    @PostMapping()
     public ResponseEntity<User> create(@RequestBody User user) {
         Role role = iRoleService.findRoleByName("ROLE_USER");
         Set<Role> roles = new HashSet<>();
@@ -36,6 +36,6 @@ public class UserController {
     }
     @GetMapping()
     public ResponseEntity<Iterable<User>> findAllUser(){
-        return new ResponseEntity<>(iUserService.findAll(),HttpStatus.OK);
+        return new ResponseEntity<>( iUserService.findAll(), HttpStatus.OK);
     }
 }
