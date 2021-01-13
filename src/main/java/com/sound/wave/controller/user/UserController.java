@@ -36,7 +36,6 @@ public class UserController {
     }
     @GetMapping()
     public ResponseEntity<Iterable<User>> findAllUser(){
-        iRoleService.findAll();
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.findAll(),HttpStatus.OK);
     }
 }
