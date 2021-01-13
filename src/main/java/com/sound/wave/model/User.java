@@ -25,7 +25,6 @@ public class User {
     private String fullName;
     @Size(max = 30, message = "max is 30 word")
     private String address;
-//    @Email(message = "must be the correct email type")
     private String email;
     private String avatar;
     @ManyToMany(fetch = FetchType.EAGER)
