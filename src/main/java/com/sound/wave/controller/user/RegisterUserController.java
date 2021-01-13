@@ -33,7 +33,7 @@ public class RegisterUserController {
         roles.add(role);
         user.setRoles(roles);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        if (!iUserService.checkUser(user.getUsername())) {
+        if (iUserService.checkUser(user.getUsername())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             iUserService.save(user);
