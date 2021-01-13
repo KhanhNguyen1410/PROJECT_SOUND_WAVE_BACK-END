@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -40,11 +41,12 @@ public class UserController {
         return new ResponseEntity<>( iUserService.findAll(), HttpStatus.OK);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Optional<User>> updateUser(@PathVariable("id") Long id, @RequestBody User user){
+    public ResponseEntity<Optional<User>> updateUser(@PathVariable("id") Long id, @RequestBody User user, BindingResult bindingResult){
         Optional<User> user1= iUserService.findById(id);
-        if (!user1.isPresent()){
+        if (!user1.isPresent() || bindingResult.hasErrors()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+        user1.get().setPhoneNumber(user.getPhoneNumber());
         user1.get().setFullName(user.getFullName());
         user1.get().setAddress(user.getAddress());
         user1.get().setEmail(user.getEmail());
