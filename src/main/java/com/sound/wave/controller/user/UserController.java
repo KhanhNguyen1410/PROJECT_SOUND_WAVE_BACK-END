@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -37,5 +38,19 @@ public class UserController {
     @GetMapping()
     public ResponseEntity<Iterable<User>> findAllUser(){
         return new ResponseEntity<>( iUserService.findAll(), HttpStatus.OK);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Optional<User>> updateUser(@PathVariable("id") Long id, @RequestBody User user){
+        Optional<User> user1= iUserService.findById(id);
+        if (!user1.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        user1.get().setFullName(user.getFullName());
+        user1.get().setAddress(user.getAddress());
+        user1.get().setEmail(user.getEmail());
+        user1.get().setAvatar(user.getAvatar());
+
+            iUserService.save(user1.get());
+            return new ResponseEntity<>(HttpStatus.OK);
     }
 }
