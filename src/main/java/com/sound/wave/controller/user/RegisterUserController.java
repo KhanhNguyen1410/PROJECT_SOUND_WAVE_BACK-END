@@ -10,15 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Set;
 
-@Controller
+@RestController
+@CrossOrigin("*")
 @RequestMapping("/register")
 public class RegisterUserController {
     @Autowired
@@ -48,6 +47,6 @@ public class RegisterUserController {
     @PostMapping("/check")
     public ResponseEntity<Boolean> checkUsername(@RequestBody String username){
         boolean isValid = iUserService.checkUser(username);
-        return new ResponseEntity<>(isValid, HttpStatus.OK);
+        return new ResponseEntity<>(!isValid, HttpStatus.OK);
     }
 }
