@@ -20,6 +20,7 @@ public class User {
     private String username;
     @NotEmpty(message = "please enter password")
     private String password;
+    @NotEmpty(message = "please enter your phone number")
     private String phoneNumber;
     @Size(max = 30, message = "max is 30 word")
     private String fullName;
