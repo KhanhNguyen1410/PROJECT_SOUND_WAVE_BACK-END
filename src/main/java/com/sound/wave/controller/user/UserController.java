@@ -31,6 +31,9 @@ public class UserController {
         roles.add(role);
         user.setRoles(roles);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (iUserService.findByUsername(user.getUsername())){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         iUserService.save(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
