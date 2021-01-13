@@ -5,7 +5,10 @@ import com.sound.wave.service.song.ISongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @CrossOrigin("*")
@@ -21,7 +24,10 @@ public class SongController {
     }
 
     @PostMapping()
-    public ResponseEntity<Song> saveNewSong(@RequestBody Song song){
-        return new ResponseEntity<>(iSongService.save(song), HttpStatus.OK);
+    public ResponseEntity<Song> saveNewSong(@Valid @RequestBody Song song, BindingResult bindingResult){
+        if (!bindingResult.hasFieldErrors()) {
+            return new ResponseEntity<>(iSongService.save(song), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }
