@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -14,12 +15,12 @@ public class PlayList {
     private Long id;
     @NotEmpty
     private String name;
+    @ManyToOne
+    private Category category;
     private String description;
-    private Date dateCreate;
+    private LocalDate dateCreate;
     @ManyToOne
     private User user;
-    @ManyToOne
-    private MusicGenres musicGenres;
-    private Date timeUpdate;
+    private LocalDate timeUpdate;
     private Long views;
 }
