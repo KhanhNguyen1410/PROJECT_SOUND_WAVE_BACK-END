@@ -47,11 +47,7 @@ public class IUserServiceIPL implements IUserService {
 
     @Override
     public boolean checkUser(String username) {
-        if (iUserRepository.findByUsername(username) != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return iUserRepository.findByUsername(username) != null;
     }
 
 

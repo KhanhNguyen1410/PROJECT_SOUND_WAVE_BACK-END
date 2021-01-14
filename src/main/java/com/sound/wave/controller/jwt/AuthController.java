@@ -34,9 +34,9 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
     }
 
-    @GetMapping("/hello")
+    @GetMapping("/host")
     public ResponseEntity<String> hello(){
-        return new ResponseEntity<>("Hello", HttpStatus.OK);
+        return new ResponseEntity<>("Trang chu", HttpStatus.OK);
     }
 
 }

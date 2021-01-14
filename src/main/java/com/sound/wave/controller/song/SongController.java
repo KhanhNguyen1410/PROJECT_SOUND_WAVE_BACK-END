@@ -9,6 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.Socket;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -23,6 +25,11 @@ public class SongController {
         return new ResponseEntity<>(iSongService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public Song findById(@PathVariable("id") Long id) {
+        return iSongService.findById(id).get();
+    }
+
     @PostMapping()
     public ResponseEntity<Song> saveNewSong(@Valid @RequestBody Song song, BindingResult bindingResult) {
         if (!bindingResult.hasFieldErrors()) {
@@ -30,10 +37,32 @@ public class SongController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-
-    @PutMapping()
-    public Song editClass(@PathVariable Long id, @RequestBody Song song) {
-        song.setId(id);
-        return iSongService.save(song);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Song> deleteSong(@PathVariable("id") Long id){
+        Optional<Song> song = iSongService.findById(id);
+        song.get();
+        iSongService.remove(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<Song> updateSong(@PathVariable("id") Long id, @RequestBody Song song ){
+        Optional<Song> currentSong = iSongService.findById(id);
+        if (currentSong == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        currentSong.get().setName(song.getName());
+        currentSong.get().setDescription(song.getDescription());
+        currentSong.get().setAvatar(song.getAvatar());
+        currentSong.get().setMusician(song.getMusician());
+        currentSong.get().setSinger(song.getSinger());
+        currentSong.get().setUser(song.getUser());
+        currentSong.get().setCategory(song.getCategory());
+        currentSong.get().setAlbum(song.getAlbum());
+
+
+        iSongService.save(currentSong.get());
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
 }
