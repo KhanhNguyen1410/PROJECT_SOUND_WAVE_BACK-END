@@ -35,7 +35,9 @@ public class SongController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Song> deleteSong(@PathVariable("id") Long id){
         Optional<Song> song = iSongService.findById(id);
-        song.get();
+        if (song.get() == null){
+            return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         iSongService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
