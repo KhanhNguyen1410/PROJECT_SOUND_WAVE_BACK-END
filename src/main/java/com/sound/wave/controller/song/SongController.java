@@ -49,14 +49,12 @@ public class SongController {
         }
         currentSong.get().setName(song.getName());
         currentSong.get().setDescription(song.getDescription());
-        currentSong.get().setUrlMp3(song.getUrlMp3());
         currentSong.get().setAvatar(song.getAvatar());
         currentSong.get().setMusician(song.getMusician());
         currentSong.get().setSinger(song.getSinger());
         currentSong.get().setUser(song.getUser());
         currentSong.get().setCategory(song.getCategory());
         currentSong.get().setAlbum(song.getAlbum());
-        currentSong.get().setViews(song.getViews());
 
         iSongService.save(currentSong.get());
         return new ResponseEntity<>(HttpStatus.OK);

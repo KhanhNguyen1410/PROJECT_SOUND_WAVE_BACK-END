@@ -38,5 +38,8 @@ public class AuthController {
     public ResponseEntity<String> hello(){
         return new ResponseEntity<>("Trang chu", HttpStatus.OK);
     }
-
+//    @PostMapping("/logout")
+//    public ResponseEntity<?> logout(){
+//
+//    }
 }
