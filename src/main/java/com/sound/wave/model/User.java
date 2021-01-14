@@ -1,5 +1,6 @@
 package com.sound.wave.model;
 
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.Data;
 
 import javax.persistence.*;
