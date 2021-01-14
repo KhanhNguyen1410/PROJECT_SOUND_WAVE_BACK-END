@@ -35,14 +35,21 @@ public class UserController {
         iUserService.save(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
     @GetMapping()
-    public ResponseEntity<Iterable<User>> findAllUser(){
-        return new ResponseEntity<>( iUserService.findAll(), HttpStatus.OK);
+    public ResponseEntity<Iterable<User>> findAllUser() {
+        return new ResponseEntity<>(iUserService.findAll(), HttpStatus.OK);
     }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<User> findUserByUsername(@PathVariable("username") String username) {
+        return new ResponseEntity<>(iUserService.findUserByUsername(username), HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<Optional<User>> updateUser(@PathVariable("id") Long id, @RequestBody User user){
-        Optional<User> user1= iUserService.findById(id);
-        if (!user1.isPresent()){
+    public ResponseEntity<Optional<User>> updateUser(@PathVariable("id") Long id, @RequestBody User user) {
+        Optional<User> user1 = iUserService.findById(id);
+        if (!user1.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         user1.get().setFullName(user.getFullName());
@@ -50,8 +57,8 @@ public class UserController {
         user1.get().setEmail(user.getEmail());
         user1.get().setAvatar(user.getAvatar());
 
-            iUserService.save(user1.get());
-            return new ResponseEntity<>(HttpStatus.OK);
+        iUserService.save(user1.get());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
