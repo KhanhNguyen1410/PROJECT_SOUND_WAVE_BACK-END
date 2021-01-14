@@ -17,8 +17,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping("/register")
+@CrossOrigin("*")
 public class RegisterUserController {
     @Autowired
     private IUserService iUserService;
@@ -43,10 +43,5 @@ public class RegisterUserController {
             }
         }
          return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
-    @PostMapping("/check")
-    public ResponseEntity<Boolean> checkUsername(@RequestBody String username){
-        boolean isValid = iUserService.checkUser(username);
-        return new ResponseEntity<>(!isValid, HttpStatus.OK);
     }
 }

@@ -19,15 +19,21 @@ public class SongController {
     private ISongService iSongService;
 
     @GetMapping()
-    public ResponseEntity<Iterable<Song>> findAllSong(){
+    public ResponseEntity<Iterable<Song>> findAllSong() {
         return new ResponseEntity<>(iSongService.findAll(), HttpStatus.OK);
     }
 
     @PostMapping()
-    public ResponseEntity<Song> saveNewSong(@Valid @RequestBody Song song, BindingResult bindingResult){
+    public ResponseEntity<Song> saveNewSong(@Valid @RequestBody Song song, BindingResult bindingResult) {
         if (!bindingResult.hasFieldErrors()) {
             return new ResponseEntity<>(iSongService.save(song), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PutMapping()
+    public Song editClass(@PathVariable Long id, @RequestBody Song song) {
+        song.setId(id);
+        return iSongService.save(song);
     }
 }
