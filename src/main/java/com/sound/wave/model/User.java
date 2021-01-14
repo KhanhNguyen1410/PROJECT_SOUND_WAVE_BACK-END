@@ -20,13 +20,12 @@ public class User {
     private String username;
     @NotEmpty(message = "please enter password")
     private String password;
+    @NotEmpty(message = "please enter your phone number")
     private String phoneNumber;
     @Size(max = 30, message = "max is 30 word")
     private String fullName;
     @Size(max = 30, message = "max is 30 word")
     private String address;
-    @NotEmpty(message = "please enter fullName ")
-    @Email(message = "must be the correct email type")
     private String email;
     private String avatar;
     @ManyToMany(fetch = FetchType.EAGER)
