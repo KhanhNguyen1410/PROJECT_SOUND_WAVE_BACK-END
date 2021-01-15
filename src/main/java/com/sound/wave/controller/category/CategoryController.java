@@ -24,5 +24,4 @@ public class CategoryController {
     public ResponseEntity<Category> getAlbum(@PathVariable long id) {
         return new ResponseEntity<>(iCategoryService.findById(id).get(), HttpStatus.OK);
     }
-
 }
