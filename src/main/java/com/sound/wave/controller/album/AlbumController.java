@@ -1,8 +1,7 @@
-package com.sound.wave.controller.category;
+package com.sound.wave.controller.album;
 
-import com.sound.wave.model.Category;
-import com.sound.wave.model.Singer;
-import com.sound.wave.service.category.ICategoryService;
+import com.sound.wave.model.Album;
+import com.sound.wave.service.album.IAlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,15 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/categories")
-public class CategoryController {
+@RequestMapping("/album")
+public class AlbumController {
     @Autowired
-    private ICategoryService iCategoryService;
+    private IAlbumService iAlbumService;
 
     @GetMapping()
-    public ResponseEntity<Iterable<Category>> findAllCategory(){
-        return new ResponseEntity<>(iCategoryService.findAll(), HttpStatus.CREATED);
+    public ResponseEntity<Iterable<Album>> findAllAlbum(){
+        return new ResponseEntity<>(iAlbumService.findAll(), HttpStatus.OK);
     }
-
 
 }
