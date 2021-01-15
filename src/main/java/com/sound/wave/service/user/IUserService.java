@@ -7,4 +7,5 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface IUserService extends IGeneralService<User>, UserDetailsService {
     User findUserByUsername(String username);
     boolean checkUser(String username);
+    boolean checkPassword(String username, String password);
 }

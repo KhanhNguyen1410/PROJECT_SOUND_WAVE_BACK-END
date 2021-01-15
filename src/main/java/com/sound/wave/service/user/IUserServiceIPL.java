@@ -6,6 +6,7 @@ import com.sound.wave.repository.user.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -13,6 +14,10 @@ import java.util.Optional;
 public class IUserServiceIPL implements IUserService {
     @Autowired
     private IUserRepository iUserRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public Iterable<User> findAll() {
         return iUserRepository.findAll();
@@ -54,5 +59,14 @@ public class IUserServiceIPL implements IUserService {
         }
     }
 
-
+    @Override
+    public boolean checkPassword(String username, String password) {
+        String userPassword = iUserRepository.findByUsername(username).getPassword();
+        CharSequence passwordEncode = password;
+        if (passwordEncoder.matches(passwordEncode, userPassword)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

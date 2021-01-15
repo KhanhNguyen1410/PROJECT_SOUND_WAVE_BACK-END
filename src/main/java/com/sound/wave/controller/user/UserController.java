@@ -25,6 +25,16 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @GetMapping()
+    public ResponseEntity<Iterable<User>> findAllUser() {
+        return new ResponseEntity<>(iUserService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<User> findUserByUsername(@PathVariable("username") String username) {
+        return new ResponseEntity<>(iUserService.findUserByUsername(username), HttpStatus.OK);
+    }
+
     @PostMapping()
     public ResponseEntity<User> create(@RequestBody User user) {
         Role role = iRoleService.findRoleByName("ROLE_USER");
@@ -34,16 +44,6 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         iUserService.save(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    @GetMapping()
-    public ResponseEntity<Iterable<User>> findAllUser() {
-        return new ResponseEntity<>(iUserService.findAll(), HttpStatus.OK);
-    }
-
-    @GetMapping("/{username}")
-    public ResponseEntity<User> findUserByUsername(@PathVariable("username") String username) {
-        return new ResponseEntity<>(iUserService.findUserByUsername(username), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
@@ -56,9 +56,24 @@ public class UserController {
         user1.get().setAddress(user.getAddress());
         user1.get().setEmail(user.getEmail());
         user1.get().setAvatar(user.getAvatar());
-
         iUserService.save(user1.get());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PutMapping("/resetpassword/{username}")
+    public ResponseEntity<User> resetPassword(@PathVariable("username") String username, @RequestBody String password) {
+        User userFind = iUserService.findUserByUsername(username);
+        userFind.setPassword(passwordEncoder.encode(password));
+        iUserService.save(userFind);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/resetpassword")
+    public ResponseEntity<Boolean> checkPassword(@RequestBody User user) {
+        User userFind = iUserService.findUserByUsername(user.getUsername());
+        userFind.setComfirmPassword(passwordEncoder.encode(user.getComfirmPassword()));
+        iUserService.save(userFind);
+        boolean isMatched = iUserService.checkPassword(user.getUsername(), user.getComfirmPassword());
+        return new ResponseEntity<>(isMatched, HttpStatus.OK);
+    }
 }
