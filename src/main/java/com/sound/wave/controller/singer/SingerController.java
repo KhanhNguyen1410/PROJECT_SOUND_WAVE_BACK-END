@@ -22,4 +22,8 @@ public class SingerController {
     public ResponseEntity<Singer> saveSinger(Singer singer){
         return new ResponseEntity<>(iSingerService.save(singer), HttpStatus.CREATED);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Singer> getSinger(@PathVariable long id) {
+        return new ResponseEntity<>(iSingerService.findById(id).get() , HttpStatus.OK);
+    }
 }

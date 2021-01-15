@@ -1,5 +1,7 @@
 package com.sound.wave.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -23,6 +25,7 @@ public class Song {
     @ManyToOne
     private Singer singer;
     @ManyToOne
+    @JsonIgnore
     private User user;
     @ManyToOne
     private Category category;
