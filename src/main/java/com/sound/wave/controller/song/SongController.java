@@ -40,13 +40,18 @@ public class SongController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Song> deleteSong(@PathVariable("id") Long id){
         Optional<Song> song = iSongService.findById(id);
-        song.get();
+        if (song.get() == null){
+            return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         iSongService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Song> updateSong(@PathVariable("id") Long id, @RequestBody Song song ){
+    public ResponseEntity<Song> updateSong(@Valid @PathVariable("id") Long id, @RequestBody Song song, BindingResult bindingResult ){
         Optional<Song> currentSong = iSongService.findById(id);
+        if (bindingResult.hasErrors()){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
         if (currentSong == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -59,10 +64,18 @@ public class SongController {
         currentSong.get().setCategory(song.getCategory());
         currentSong.get().setAlbum(song.getAlbum());
 
-
         iSongService.save(currentSong.get());
         return new ResponseEntity<>(HttpStatus.OK);
 
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Iterable<Song>> searchSong(@RequestBody String name){
+        Iterable<Song> songIterable = iSongService.findSongsByName(name);
+        if (songIterable == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(songIterable, HttpStatus.OK);
     }
 
 }

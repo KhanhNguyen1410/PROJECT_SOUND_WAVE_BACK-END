@@ -33,6 +33,21 @@ public class UserController {
     public ResponseEntity<Iterable<User>> findAllUser(){
         return new ResponseEntity<>( iUserService.findAll(), HttpStatus.OK);
     }
+
+
+    @GetMapping("/user-current/{username}")
+    public ResponseEntity<User> findUserByUsername(@PathVariable("username") String username) {
+        return new ResponseEntity<>(iUserService.findUserByUsername(username), HttpStatus.OK);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<User>> findUserById(@PathVariable("id") Long id) {
+        Optional<User> optionalUser= iUserService.findById(id);
+        if (optionalUser.get() == null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(optionalUser, HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Optional<User>> updateUser(@PathVariable("id") Long id, @RequestBody User user){
         Optional<User> user1= iUserService.findById(id);
