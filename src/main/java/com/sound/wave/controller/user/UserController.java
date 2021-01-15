@@ -46,17 +46,14 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Optional<User>> updateUser(@PathVariable("id") Long id, @RequestBody User user) {
-        Optional<User> user1 = iUserService.findById(id);
-        if (!user1.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        user1.get().setFullName(user.getFullName());
-        user1.get().setAddress(user.getAddress());
-        user1.get().setEmail(user.getEmail());
-        user1.get().setAvatar(user.getAvatar());
-        iUserService.save(user1.get());
+    @PutMapping("/update")
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        User user1 = iUserService.findUserByUsername(user.getUsername());
+        user1.setFullName(user.getFullName());
+        user1.setAddress(user.getAddress());
+        user1.setEmail(user.getEmail());
+        user1.setAvatar(user.getAvatar());
+        iUserService.save(user1);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
