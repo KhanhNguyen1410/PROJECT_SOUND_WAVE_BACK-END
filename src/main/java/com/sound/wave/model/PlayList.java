@@ -1,5 +1,6 @@
 package com.sound.wave.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class PlayList {
     private String description;
     private LocalDate dateCreate;
     @ManyToOne
+    @JsonIgnore
     private User user;
     private LocalDate timeUpdate;
     private Long views;

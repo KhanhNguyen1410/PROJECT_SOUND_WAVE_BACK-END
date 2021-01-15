@@ -31,4 +31,6 @@ public class Song {
     private Category category;
     @ManyToOne
     private Album album;
+//    @ManyToOne
+//    private PlayList playList;
 }

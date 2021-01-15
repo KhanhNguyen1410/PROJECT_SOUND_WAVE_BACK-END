@@ -32,6 +32,14 @@ public class SongController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Song>> findSongById(@PathVariable("id") Long id){
+        Optional<Song> songOptional = iSongService.findById(id);
+        if (songOptional.get() == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Optional<Song>>(songOptional,HttpStatus.OK);
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Song> deleteSong(@PathVariable("id") Long id){
         Optional<Song> song = iSongService.findById(id);
