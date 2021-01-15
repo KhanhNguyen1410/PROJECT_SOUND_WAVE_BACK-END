@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/singer")
+@RequestMapping("/singers")
 public class SingerController {
     @Autowired
     private ISingerService iSingerService;
@@ -21,6 +21,5 @@ public class SingerController {
     @PostMapping()
     public ResponseEntity<Singer> saveSinger(Singer singer){
         return new ResponseEntity<>(iSingerService.save(singer), HttpStatus.CREATED);
-
     }
 }
