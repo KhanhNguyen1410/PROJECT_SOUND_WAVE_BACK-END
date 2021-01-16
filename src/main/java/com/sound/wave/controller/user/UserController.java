@@ -27,13 +27,10 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
-
     @GetMapping()
     public ResponseEntity<Iterable<User>> findAllUser(){
         return new ResponseEntity<>( iUserService.findAll(), HttpStatus.OK);
     }
-
     @GetMapping("/{username}")
     public ResponseEntity<User> findUserByUsername(@PathVariable("username") String username) {
         return new ResponseEntity<>(iUserService.findUserByUsername(username), HttpStatus.OK);
@@ -77,4 +74,5 @@ public class UserController {
         boolean isMatched = iUserService.checkPassword(user.getUsername(), user.getComfirmPassword());
         return new ResponseEntity<>(isMatched, HttpStatus.OK);
     }
+
 }

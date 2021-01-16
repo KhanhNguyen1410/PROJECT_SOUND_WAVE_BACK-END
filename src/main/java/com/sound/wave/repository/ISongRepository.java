@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ISongRepository extends JpaRepository<Song, Long> {
+    Song findSongById(Long id);
 }

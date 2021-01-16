@@ -25,6 +25,12 @@ public class SongController {
         return new ResponseEntity<>(iSongService.findAll(), HttpStatus.OK);
     }
 
+    @PostMapping("/getsong")
+    public ResponseEntity<Song> findSongById(@RequestBody Long id) {
+        Song song = iSongService.findSongById(id);
+        return new ResponseEntity<>(song, HttpStatus.OK);
+    }
+
     @PostMapping()
     public ResponseEntity<Song> saveNewSong(@Valid @RequestBody Song song, BindingResult bindingResult){
         if (!bindingResult.hasFieldErrors()) {
