@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/playlist")
+@RequestMapping("/playlists")
 public class PlaylistController {
     @Autowired
     private IPlaylistService playlistService;
