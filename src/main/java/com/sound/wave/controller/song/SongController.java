@@ -9,6 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.Socket;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -32,6 +34,11 @@ public class SongController {
     }
     @PutMapping("/{id}")
     public ResponseEntity<Song> updateSong(@PathVariable long id){
+        Song song = iSongService.findById(id).get();
+        return new ResponseEntity<>(iSongService.save(song), HttpStatus.OK);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Song> findSongById(@PathVariable long id){
         Song song = iSongService.findById(id).get();
         return new ResponseEntity<>(iSongService.save(song), HttpStatus.OK);
     }
