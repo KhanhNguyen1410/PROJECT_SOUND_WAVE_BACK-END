@@ -30,4 +30,9 @@ public class SongController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<Song> updateSong(@PathVariable long id){
+        Song song = iSongService.findById(id).get();
+        return new ResponseEntity<>(iSongService.save(song), HttpStatus.OK);
+    }
 }
