@@ -28,42 +28,40 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
 
-
     @GetMapping()
-    public ResponseEntity<Iterable<User>> findAllUser(){
-        return new ResponseEntity<>( iUserService.findAll(), HttpStatus.OK);
+    public ResponseEntity<Iterable<User>> findAllUser() {
+        return new ResponseEntity<>(iUserService.findAll(), HttpStatus.OK);
     }
 
 
-    @GetMapping("/user-current/{username}")
+    @GetMapping("/{username}")
     public ResponseEntity<User> findUserByUsername(@PathVariable("username") String username) {
         return new ResponseEntity<>(iUserService.findUserByUsername(username), HttpStatus.OK);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Optional<User>> findUserById(@PathVariable("id") Long id) {
-        Optional<User> optionalUser= iUserService.findById(id);
-        if (optionalUser.get() == null){
+        Optional<User> optionalUser = iUserService.findById(id);
+        if (optionalUser.get() == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(optionalUser, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Optional<User>> updateUser(@PathVariable("id") Long id, @RequestBody User user){
-        Optional<User> user1= iUserService.findById(id);
-        if (!user1.isPresent()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        user1.get().setFullName(user.getFullName());
-        user1.get().setAddress(user.getAddress());
-        user1.get().setEmail(user.getEmail());
-        user1.get().setAvatar(user.getAvatar());
+    @PutMapping("/update")
+    public ResponseEntity<Optional<User>> updateUser(@RequestBody User user) {
+        User user1 = iUserService.findUserByUsername(user.getUsername());
+        user1.setFullName(user.getFullName());
+        user1.setAddress(user.getAddress());
+        user1.setEmail(user.getEmail());
+        user1.setAvatar(user.getAvatar());
 
-            iUserService.save(user1.get());
-            return new ResponseEntity<>(HttpStatus.OK);
+        iUserService.save(user1);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @PostMapping("/password")
-    public ResponseEntity<User> updatePassword(@RequestBody String password){
+    public ResponseEntity<User> updatePassword(@RequestBody String password) {
         User userCurrent = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal.equals("anonymousUser")) {

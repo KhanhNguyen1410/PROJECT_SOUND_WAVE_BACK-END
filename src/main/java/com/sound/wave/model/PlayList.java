@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Data
@@ -25,4 +26,6 @@ public class PlayList {
     private User user;
     private LocalDate timeUpdate;
     private Long views;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Song> songs;
 }
