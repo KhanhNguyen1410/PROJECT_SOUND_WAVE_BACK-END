@@ -31,4 +31,9 @@ public class ISongServiceIPL implements ISongService {
     public void remove(Long id) {
             iSongRepository.deleteById(id);
     }
+
+    @Override
+    public Song findSongById(Long id) {
+        return iSongRepository.findSongById(id);
+    }
 }

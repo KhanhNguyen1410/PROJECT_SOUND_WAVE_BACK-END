@@ -1,6 +1,7 @@
 package com.sound.wave.controller.song;
 
 import com.sound.wave.model.Song;
+import com.sound.wave.model.User;
 import com.sound.wave.service.song.ISongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,12 @@ public class SongController {
     @GetMapping()
     public ResponseEntity<Iterable<Song>> findAllSong(){
         return new ResponseEntity<>(iSongService.findAll(), HttpStatus.OK);
+    }
+
+    @PostMapping("/getsong")
+    public ResponseEntity<Song> findSongById(@RequestBody Long id) {
+        Song song = iSongService.findSongById(id);
+        return new ResponseEntity<>(song, HttpStatus.OK);
     }
 
     @PostMapping()

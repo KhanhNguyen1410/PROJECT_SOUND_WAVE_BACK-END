@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/singer")
+@RequestMapping("/singers")
 public class SingerController {
     @Autowired
     private ISingerService iSingerService;
