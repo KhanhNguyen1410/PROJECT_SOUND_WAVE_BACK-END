@@ -38,22 +38,22 @@ public class PlaylistController {
         if (bindingResult.hasErrors()){
             return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        Optional<PlayList> playListOptional= playlistService.findById(id);
+        PlayList playListOptional= playlistService.findPlaylistById(id);
         if (playListOptional == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        playListOptional.get().setName(playList.getName());
-        playListOptional.get().setCategory(playList.getCategory());
-        playListOptional.get().setDescription(playList.getDescription());
-        playListOptional.get().setDateCreate(playList.getDateCreate());
-        playListOptional.get().setTimeUpdate(playList.getTimeUpdate());
-        playlistService.save(playListOptional.get());
-        return  new ResponseEntity<>(playListOptional.get(), HttpStatus.OK);
+        playListOptional.setName(playList.getName());
+        playListOptional.setCategory(playList.getCategory());
+        playListOptional.setDescription(playList.getDescription());
+        playListOptional.setDateCreate(playList.getDateCreate());
+        playListOptional.setTimeUpdate(playList.getTimeUpdate());
+        playlistService.save(playListOptional);
+        return  new ResponseEntity<>(playListOptional, HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<PlayList> deletePlaylist(@PathVariable("id") Long id){
-        Optional<PlayList> playList = playlistService.findById(id);
-        if(playList.get() == null){
+        PlayList playList = playlistService.findPlaylistById(id);
+        if(playList == null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         playlistService.remove(id);
