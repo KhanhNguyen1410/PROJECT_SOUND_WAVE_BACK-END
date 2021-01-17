@@ -58,4 +58,9 @@ public class ISongServiceIPL implements ISongService {
         return iSongRepository.findSongsByDateNewLimit10();
     }
 
+    @Override
+    public Iterable<Song> findSongsByIdUser(Long id) {
+        return iSongRepository.findSongsByIdUser(id);
+    }
+
 }
