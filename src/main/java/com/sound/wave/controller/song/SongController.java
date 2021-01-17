@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.Socket;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -80,5 +81,12 @@ public class SongController {
         }
         return new ResponseEntity<>(songIterable, HttpStatus.OK);
     }
-
+    @GetMapping("/search/{id}")
+    public ResponseEntity<List<Song>> findSongsByPlaylistId(@PathVariable("id") Long id){
+        List<Song> list = iSongService.findSongsByPlaylistId(id);
+        if (list == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 }

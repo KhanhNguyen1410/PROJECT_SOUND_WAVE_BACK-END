@@ -5,6 +5,7 @@ import com.sound.wave.repository.ISongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,5 +36,10 @@ public class ISongServiceIPL implements ISongService {
     @Override
     public Iterable<Song> findSongsByName(String name) {
         return iSongRepository.findSongsByNameContaining(name);
+    }
+
+    @Override
+    public List<Song> findSongsByPlaylistId(Long id) {
+        return iSongRepository.findSongsByPlaylistID(id);
     }
 }
