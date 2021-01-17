@@ -42,4 +42,9 @@ public class ISongServiceIPL implements ISongService {
     public List<Song> findSongsByPlaylistId(Long id) {
         return iSongRepository.findSongsByPlaylistID(id);
     }
+
+    @Override
+    public List<Song> findSongsByMostViews() {
+        return iSongRepository.findByViewsLimit10();
+    }
 }

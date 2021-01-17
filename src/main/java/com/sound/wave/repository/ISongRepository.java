@@ -13,10 +13,14 @@ import java.util.List;
 public interface ISongRepository extends JpaRepository<Song, Long> {
     Iterable<Song> findSongsByNameContaining(String name);
     @Modifying
-    @Query(value = "select s.* from song as s\n" +
-            "join play_list_songs as ps on s.id = ps.songs_id\n" +
-            "join play_list as p on p.id = ps.play_list_id\n" +
+    @Query(value = "select s.* from song as s " +
+            "join play_list_songs as ps on s.id = ps.songs_id " +
+            "join play_list as p on p.id = ps.play_list_id " +
             "where p.id = :id", nativeQuery = true)
     List<Song> findSongsByPlaylistID(@Param("id") Long id);
+    @Query(value = "select * from song " +
+            "order by views desc " +
+            " limit 10", nativeQuery = true)
+    List<Song> findByViewsLimit10();
 
 }

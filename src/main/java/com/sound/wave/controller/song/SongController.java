@@ -89,4 +89,12 @@ public class SongController {
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+    @GetMapping("/mostviews")
+    public ResponseEntity<List<Song>> findSongByViewsLimit10(){
+        List<Song> list = iSongService.findSongsByMostViews();
+        if (list == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return  new ResponseEntity<>(list, HttpStatus.OK);
+    }
 }
