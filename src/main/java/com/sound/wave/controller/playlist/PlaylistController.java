@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @RestController
@@ -45,8 +46,7 @@ public class PlaylistController {
         playListOptional.setName(playList.getName());
         playListOptional.setCategory(playList.getCategory());
         playListOptional.setDescription(playList.getDescription());
-        playListOptional.setDateCreate(playList.getDateCreate());
-        playListOptional.setTimeUpdate(playList.getTimeUpdate());
+        playListOptional.setTimeUpdate(LocalDate.now());
         playlistService.save(playListOptional);
         return  new ResponseEntity<>(playListOptional, HttpStatus.OK);
     }

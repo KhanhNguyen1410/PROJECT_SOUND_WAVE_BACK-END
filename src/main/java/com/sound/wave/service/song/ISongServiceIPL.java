@@ -53,4 +53,9 @@ public class ISongServiceIPL implements ISongService {
         return iSongRepository.findSongById(id);
     }
 
+    @Override
+    public List<Song> findSongsByDateNew() {
+        return iSongRepository.findSongsByDateNewLimit10();
+    }
+
 }

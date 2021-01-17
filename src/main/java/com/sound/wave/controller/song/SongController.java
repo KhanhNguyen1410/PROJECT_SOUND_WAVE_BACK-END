@@ -100,4 +100,12 @@ public class SongController {
         }
         return  new ResponseEntity<>(list, HttpStatus.OK);
     }
+    @GetMapping("/datenew")
+    public ResponseEntity<List<Song>> findSongsByDateNew(){
+        List<Song> list = iSongService.findSongsByDateNew();
+        if (list == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return  new ResponseEntity<>(list, HttpStatus.OK);
+    }
 }
