@@ -25,6 +25,12 @@ public class SongController {
         return new ResponseEntity<>(iSongService.findAll(), HttpStatus.OK);
     }
 
+    @PostMapping("/getsong")
+    public ResponseEntity<Song> findSongById(@RequestBody Long id) {
+        Song song = iSongService.findSongById(id);
+        return new ResponseEntity<>(song, HttpStatus.OK);
+    }
+
     @PostMapping()
     public ResponseEntity<Song> saveNewSong(@Valid @RequestBody Song song, BindingResult bindingResult){
         if (!bindingResult.hasFieldErrors()) {
@@ -32,14 +38,33 @@ public class SongController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Song> deleteSong(@PathVariable("id") Long id){
+        Optional<Song> song = iSongService.findById(id);
+        if (song.get() == null){
+            return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        iSongService.remove(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
     @PutMapping("/{id}")
-    public ResponseEntity<Song> updateSong(@PathVariable long id){
-        Song song = iSongService.findById(id).get();
-        return new ResponseEntity<>(iSongService.save(song), HttpStatus.OK);
+    public ResponseEntity<Song> updateSong(@PathVariable("id") Long id, @RequestBody Song song ){
+        Optional<Song> currentSong = iSongService.findById(id);
+        if (currentSong == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        currentSong.get().setName(song.getName());
+        currentSong.get().setDescription(song.getDescription());
+        currentSong.get().setAvatar(song.getAvatar());
+        currentSong.get().setMusician(song.getMusician());
+        currentSong.get().setSinger(song.getSinger());
+        currentSong.get().setUser(song.getUser());
+        currentSong.get().setCategory(song.getCategory());
+        currentSong.get().setAlbum(song.getAlbum());
+
+        iSongService.save(currentSong.get());
+        return new ResponseEntity<>(HttpStatus.OK);
+
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<Song> findSongById(@PathVariable long id){
-        Song song = iSongService.findById(id).get();
-        return new ResponseEntity<>(iSongService.save(song), HttpStatus.OK);
-    }
+
 }
