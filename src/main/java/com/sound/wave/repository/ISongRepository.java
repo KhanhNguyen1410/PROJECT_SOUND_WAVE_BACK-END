@@ -22,5 +22,6 @@ public interface ISongRepository extends JpaRepository<Song, Long> {
             "order by views desc " +
             " limit 10", nativeQuery = true)
     List<Song> findByViewsLimit10();
+    Song findSongById(Long id);
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.Socket;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,22 +30,23 @@ public class SongController {
     @PostMapping()
     public ResponseEntity<Song> saveNewSong(@Valid @RequestBody Song song, BindingResult bindingResult){
         if (!bindingResult.hasFieldErrors()) {
+            song.setDate(LocalDate.now());
             return new ResponseEntity<>(iSongService.save(song), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Song>> findSongById(@PathVariable("id") Long id){
-        Optional<Song> songOptional = iSongService.findById(id);
-        if (songOptional.get() == null){
+    public ResponseEntity<Song> findSongById(@PathVariable("id") Long id){
+        Song song = iSongService.findSongById(id);
+        if (song == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Optional<Song>>(songOptional,HttpStatus.OK);
+        return new ResponseEntity<Song>(song,HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Song> deleteSong(@PathVariable("id") Long id){
-        Optional<Song> song = iSongService.findById(id);
-        if (song.get() == null){
+        Song song = iSongService.findSongById(id);
+        if (song == null){
             return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         iSongService.remove(id);
@@ -52,25 +54,26 @@ public class SongController {
     }
     @PutMapping("/{id}")
     public ResponseEntity<Song> updateSong(@Valid @PathVariable("id") Long id, @RequestBody Song song, BindingResult bindingResult ){
-        Optional<Song> currentSong = iSongService.findById(id);
+        Song currentSong = iSongService.findSongById(id);
         if (bindingResult.hasErrors()){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         if (currentSong == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        currentSong.get().setName(song.getName());
-        currentSong.get().setDescription(song.getDescription());
-        currentSong.get().setAvatar(song.getAvatar());
-        currentSong.get().setMusician(song.getMusician());
-        currentSong.get().setSinger(song.getSinger());
-        currentSong.get().setUser(song.getUser());
-        currentSong.get().setCategory(song.getCategory());
-        currentSong.get().setAlbum(song.getAlbum());
+        currentSong.setName(song.getName());
+        currentSong.setDescription(song.getDescription());
+        currentSong.setAvatar(song.getAvatar());
+        currentSong.setMusician(song.getMusician());
+        currentSong.setSinger(song.getSinger());
+        currentSong.setUser(song.getUser());
+        currentSong.setCategory(song.getCategory());
+        currentSong.setAlbum(song.getAlbum());
+        currentSong.setDate(LocalDate.now());
 
-        iSongService.save(currentSong.get());
+
+        iSongService.save(currentSong);
         return new ResponseEntity<>(HttpStatus.OK);
-
     }
 
     @GetMapping("/search")
