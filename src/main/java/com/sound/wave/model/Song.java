@@ -25,7 +25,6 @@ public class Song {
     @ManyToOne
     private Singer singer;
     @ManyToOne
-    @JsonIgnore
     private User user;
     @ManyToOne
     private Category category;

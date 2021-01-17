@@ -26,8 +26,14 @@ public class IPlaylistServiceImpl implements IPlaylistService{
         return playlistRepository.findById(id);
     }
 
+
     @Override
     public void remove(Long id) {
         playlistRepository.deleteById(id);
+    }
+
+    @Override
+    public PlayList findPlaylistById(Long id) {
+        return playlistRepository.findPlayListById(id);
     }
 }
