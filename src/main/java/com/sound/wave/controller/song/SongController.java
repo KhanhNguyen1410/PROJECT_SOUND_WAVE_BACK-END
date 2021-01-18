@@ -104,5 +104,13 @@ public class SongController {
         }
         return new ResponseEntity<>(songs, HttpStatus.OK);
     }
+    @GetMapping("/mostlikes")
+    public ResponseEntity<Iterable<Song>> findSongByMostLike(){
+        Iterable<Song> songIterable = iSongService.findSongsByMostLike();
+        if (songIterable == null){
+            return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return  new ResponseEntity<>(songIterable, HttpStatus.OK);
+    }
 
 }
