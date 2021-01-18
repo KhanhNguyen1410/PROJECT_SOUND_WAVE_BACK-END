@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.xml.bind.SchemaOutputResolver;
 import java.net.Socket;
 import java.util.Optional;
 
@@ -82,6 +83,15 @@ public class SongController {
     @PostMapping("/count-views")
     public ResponseEntity<Song> countViews(@RequestBody long id){
       return new ResponseEntity<>( iSongService.updateViews(id),HttpStatus.OK);
+    }
+
+    @GetMapping("/mostviews")
+    public ResponseEntity<Iterable<Song>> findSongsByMostViews(){
+        Iterable<Song> songs = iSongService.findSongsByMostViews();
+        if (songs == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(songs, HttpStatus.OK);
     }
 
 }
