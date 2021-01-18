@@ -48,4 +48,10 @@ public class ISongServiceIPL implements ISongService {
         Song song = iSongRepository.findById(id).get();
         return song;
     }
+
+    @Override
+    public Iterable<Song> findSongsByMostViews() {
+        return iSongRepository.findSongsByMostViews();
+    }
+
 }
