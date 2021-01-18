@@ -30,4 +30,9 @@ public class IPlaylistServiceImpl implements IPlaylistService{
     public void remove(Long id) {
         playlistRepository.deleteById(id);
     }
+
+    @Override
+    public Iterable<PlayList> findPlaylistByViews() {
+        return  playlistRepository.findPlaylistsByViewsDesc();
+    }
 }

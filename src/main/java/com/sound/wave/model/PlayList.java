@@ -1,11 +1,13 @@
 package com.sound.wave.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Data
@@ -20,7 +22,10 @@ public class PlayList {
     private String description;
     private LocalDate dateCreate;
     @ManyToOne
+    @JsonIgnore
     private User user;
     private LocalDate timeUpdate;
     private Long views;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Song> songs;
 }
