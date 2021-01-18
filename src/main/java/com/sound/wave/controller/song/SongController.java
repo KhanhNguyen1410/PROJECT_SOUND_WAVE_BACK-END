@@ -19,14 +19,14 @@ public class SongController {
 
     @Autowired
     private ISongService iSongService;
-
+    // lay all song
     @GetMapping()
     public ResponseEntity<Iterable<Song>> findAllSong(){
         return new ResponseEntity<>(iSongService.findAll(), HttpStatus.OK);
     }
-
+    // lay song bang
     @PostMapping("/getsong")
-    public ResponseEntity<Song> findSongById(@RequestBody Long id) {
+    public ResponseEntity<Song> getSongbyId(@RequestBody Long id) {
         Song song = iSongService.findSongById(id);
         return new ResponseEntity<>(song, HttpStatus.OK);
     }
@@ -38,6 +38,14 @@ public class SongController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Song>> findSongById(@PathVariable("id") Long id){
+        Optional<Song> songOptional = iSongService.findById(id);
+        if (songOptional.get() == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Optional<Song>>(songOptional,HttpStatus.OK);
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Song> deleteSong(@PathVariable("id") Long id){
         Optional<Song> song = iSongService.findById(id);
@@ -48,8 +56,11 @@ public class SongController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Song> updateSong(@PathVariable("id") Long id, @RequestBody Song song ){
+    public ResponseEntity<Song> updateSong(@Valid @PathVariable("id") Long id, @RequestBody Song song, BindingResult bindingResult ){
         Optional<Song> currentSong = iSongService.findById(id);
+        if (bindingResult.hasErrors()){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
         if (currentSong == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -61,20 +72,19 @@ public class SongController {
         currentSong.get().setUser(song.getUser());
         currentSong.get().setCategory(song.getCategory());
         currentSong.get().setAlbum(song.getAlbum());
-
         iSongService.save(currentSong.get());
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @GetMapping("/my-songs/{user_id}")
-    public ResponseEntity<Iterable<Song>> findSongByUser(@PathVariable long user_id){
+    @PostMapping("/my-songs")
+    public ResponseEntity<Iterable<Song>> findSongByUser(@RequestBody long user_id){
         return new ResponseEntity<>(iSongService.findAllByUserId(user_id), HttpStatus.OK);
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<Song> findSongById(@PathVariable long id){
-        return new ResponseEntity<>(iSongService.findById(id).get(), HttpStatus.OK);
-    }
-    @PostMapping("/{id}")
-    public ResponseEntity<Song> countViews(@PathVariable long id){
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Song> findSongById(@PathVariable long id){
+//        return new ResponseEntity<>(iSongService.findById(id).get(), HttpStatus.OK);
+//    }
+    @PostMapping("/count-views")
+    public ResponseEntity<Song> countViews(@RequestBody long id){
       return new ResponseEntity<>( iSongService.updateViews(id),HttpStatus.OK);
     }
 
