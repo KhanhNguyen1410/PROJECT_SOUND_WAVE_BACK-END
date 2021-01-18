@@ -27,4 +27,5 @@ public class SingerController {
     public ResponseEntity<Singer> getSinger(@PathVariable long id) {
         return new ResponseEntity<>(iSingerService.findById(id).get() , HttpStatus.OK);
     }
+
 }
