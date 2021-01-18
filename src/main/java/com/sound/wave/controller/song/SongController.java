@@ -74,24 +74,8 @@ public class SongController {
         return new ResponseEntity<>(iSongService.findById(id).get(), HttpStatus.OK);
     }
     @PostMapping("/{id}")
-    public ResponseEntity<Song> countViews(@PathVariable long id, @RequestBody Song song){
-        Song songCurrent = iSongService.findById(id).get();
-        long views = song.getViews();
-        views++;
-        if (songCurrent == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        songCurrent.setName(song.getName());
-        songCurrent.setDescription(song.getDescription());
-        songCurrent.setAvatar(song.getAvatar());
-        songCurrent.setMusician(song.getMusician());
-        songCurrent.setSinger(song.getSinger());
-        songCurrent.setUser(song.getUser());
-        songCurrent.setCategory(song.getCategory());
-        songCurrent.setAlbum(song.getAlbum());
-        songCurrent.setViews(views);
-        return new ResponseEntity<>(iSongService.save(songCurrent), HttpStatus.OK);
-
+    public ResponseEntity<Song> countViews(@PathVariable long id){
+      return new ResponseEntity<>( iSongService.updateViews(id),HttpStatus.OK);
     }
 
 }

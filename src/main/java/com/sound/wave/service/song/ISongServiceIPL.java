@@ -41,4 +41,11 @@ public class ISongServiceIPL implements ISongService {
     public Iterable<Song> findAllByUserId(Long id) {
         return iSongRepository.findAllByUserId(id);
     }
+
+    @Override
+    public Song updateViews(Long id) {
+        iSongRepository.updateViews(id);
+        Song song = iSongRepository.findById(id).get();
+        return song;
+    }
 }
