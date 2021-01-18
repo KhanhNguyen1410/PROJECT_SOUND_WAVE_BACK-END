@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
 
+
 @Repository
 public interface ISongRepository extends JpaRepository<Song, Long> {
     Song findSongById(Long id);
@@ -33,4 +34,5 @@ public interface ISongRepository extends JpaRepository<Song, Long> {
             " as ok on s.id= ok.id\n" +
             "limit 10", nativeQuery = true)
     Iterable<Song> findSongsByMostLike();
+    Iterable<Song> findAllByNameContaining(String name);
 }

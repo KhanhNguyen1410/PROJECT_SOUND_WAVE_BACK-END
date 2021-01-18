@@ -5,8 +5,6 @@ import com.sound.wave.service.IGeneralService;
 import javafx.beans.property.SimpleLongProperty;
 import org.springframework.data.repository.query.Param;
 
-import java.util.Iterator;
-
 public interface ISongService extends IGeneralService<Song> {
     Song findSongById(Long id);
     Iterable<Song> findAllByUserId( Long id);
@@ -14,4 +12,5 @@ public interface ISongService extends IGeneralService<Song> {
     Iterable<Song> findSongsByMostViews();
     Iterable<Song> findSongsByDateNew();
     Iterable<Song> findSongsByMostLike();
+    Iterable<Song> findAllByNameContaining(String name);
 }

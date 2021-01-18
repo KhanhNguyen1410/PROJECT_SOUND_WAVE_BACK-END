@@ -55,6 +55,11 @@ public class ISongServiceIPL implements ISongService {
     }
 
     @Override
+    public Iterable<Song> findAllByNameContaining(String name) {
+        return iSongRepository.findAllByNameContaining(name);
+    }
+
+    @Override
     public Iterable<Song> findSongsByDateNew() {
         return iSongRepository.findSongsByDateNew();
     }
