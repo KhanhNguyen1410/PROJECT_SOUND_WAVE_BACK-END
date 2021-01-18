@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
+import java.util.Iterator;
 
 @Repository
 public interface ISongRepository extends JpaRepository<Song, Long> {
@@ -24,4 +25,5 @@ public interface ISongRepository extends JpaRepository<Song, Long> {
 
     @Query(value = "select * from song s order by views desc limit 10", nativeQuery = true)
     Iterable<Song> findSongsByMostViews();
+    Iterable<Song> findAllByNameContaining(String name);
 }

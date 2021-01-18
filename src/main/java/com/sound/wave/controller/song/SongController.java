@@ -97,4 +97,9 @@ public class SongController {
         return new ResponseEntity<>(songs, HttpStatus.OK);
     }
 
+    @PostMapping("/search/{name}")
+    public ResponseEntity<Iterable<Song>> searchByName(@PathVariable String name ){
+        Iterable<Song> songs = iSongService.findAllByNameContaining(name);
+        return new ResponseEntity<>(songs,HttpStatus.OK);
+    }
 }
