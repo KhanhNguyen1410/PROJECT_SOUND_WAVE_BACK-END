@@ -79,10 +79,6 @@ public class SongController {
     public ResponseEntity<Iterable<Song>> findSongByUser(@RequestBody long user_id){
         return new ResponseEntity<>(iSongService.findAllByUserId(user_id), HttpStatus.OK);
     }
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Song> findSongById(@PathVariable long id){
-//        return new ResponseEntity<>(iSongService.findById(id).get(), HttpStatus.OK);
-//    }
     @PostMapping("/count-views")
     public ResponseEntity<Song> countViews(@RequestBody long id){
       return new ResponseEntity<>( iSongService.updateViews(id),HttpStatus.OK);
