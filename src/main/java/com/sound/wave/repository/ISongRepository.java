@@ -22,6 +22,6 @@ public interface ISongRepository extends JpaRepository<Song, Long> {
     @Query(value ="UPDATE song s set views = views + 1 where s.id = :id", nativeQuery = true )
     void updateViews(@Param("id") Long id);
 
-    @Query(value = "select * from song s order by views limit 10", nativeQuery = true)
+    @Query(value = "select * from song s order by views desc limit 10", nativeQuery = true)
     Iterable<Song> findSongsByMostViews();
 }
