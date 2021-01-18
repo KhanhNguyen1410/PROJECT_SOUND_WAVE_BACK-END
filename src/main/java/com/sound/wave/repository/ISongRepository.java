@@ -24,4 +24,7 @@ public interface ISongRepository extends JpaRepository<Song, Long> {
 
     @Query(value = "select * from song s order by views desc limit 10", nativeQuery = true)
     Iterable<Song> findSongsByMostViews();
+
+    @Query(value = "select * from song s order by date_create desc limit 10", nativeQuery = true)
+    Iterable<Song> findSongsByDateNew();
 }

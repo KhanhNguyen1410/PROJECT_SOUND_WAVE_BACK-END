@@ -96,5 +96,13 @@ public class SongController {
         }
         return new ResponseEntity<>(songs, HttpStatus.OK);
     }
+    @GetMapping("/newdate")
+    public ResponseEntity<Iterable<Song>> findSongByDateNew(){
+        Iterable<Song> songs = iSongService.findSongsByDateNew();
+        if (songs == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(songs, HttpStatus.OK);
+    }
 
 }
