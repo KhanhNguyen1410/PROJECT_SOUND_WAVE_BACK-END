@@ -13,6 +13,7 @@ import javax.xml.bind.SchemaOutputResolver;
 import java.net.Socket;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -118,5 +119,13 @@ public class SongController {
     public ResponseEntity<Iterable<Song>> searchByName(@PathVariable String name ){
         Iterable<Song> songs = iSongService.findAllByNameContaining(name);
         return new ResponseEntity<>(songs,HttpStatus.OK);
+    }
+    @GetMapping("/date-new")
+    public ResponseEntity<Iterable<Song>> findSongsByDateNew(){
+        Iterable<Song> list = iSongService.findSongsByDateNew();
+        if (list == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return  new ResponseEntity<>(list, HttpStatus.OK);
     }
 }
