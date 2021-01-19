@@ -90,7 +90,7 @@ public class SongController {
       return new ResponseEntity<>( iSongService.updateViews(id),HttpStatus.OK);
     }
 
-    @GetMapping("/mostviews")
+    @GetMapping("/most-views")
     public ResponseEntity<Iterable<Song>> findSongsByMostViews(){
         Iterable<Song> songs = iSongService.findSongsByMostViews();
         if (songs == null){
@@ -98,7 +98,7 @@ public class SongController {
         }
         return new ResponseEntity<>(songs, HttpStatus.OK);
     }
-    @GetMapping("/newdate")
+    @GetMapping("/new-date")
     public ResponseEntity<Iterable<Song>> findSongByDateNew(){
         Iterable<Song> songs = iSongService.findSongsByDateNew();
         if (songs == null){
@@ -106,7 +106,7 @@ public class SongController {
         }
         return new ResponseEntity<>(songs, HttpStatus.OK);
     }
-    @GetMapping("/mostlikes")
+    @GetMapping("/most-likes")
     public ResponseEntity<Iterable<Song>> findSongByMostLike(){
         Iterable<Song> songIterable = iSongService.findSongsByMostLike();
         if (songIterable == null){
