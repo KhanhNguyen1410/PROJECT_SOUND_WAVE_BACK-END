@@ -5,4 +5,5 @@ import com.sound.wave.service.IGeneralService;
 
 public interface IPlaylistService extends IGeneralService<PlayList> {
     Iterable<PlayList> findPlaylistByViews();
+    PlayList findPlaylistById(Long id);
 }

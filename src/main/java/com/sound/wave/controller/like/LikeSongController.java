@@ -33,7 +33,7 @@ public class LikeSongController {
     public ResponseEntity<Iterable<LikeSong>> getAllLike(){
         return new ResponseEntity<>(iLikeSongService.findAll(), HttpStatus.OK);
     }
-    @PostMapping("like/{s_id}/{u_id}")
+    @PostMapping("/like/{s_id}/{u_id}")
     public ResponseEntity<LikeSong> likeSong(@PathVariable("s_id") long s_id, @PathVariable("u_id") long u_id){
         LikeSong likeSong = iLikeSongService.findLikeSongByUserAndSong(s_id,u_id);
         if (likeSong == null){
