@@ -35,4 +35,9 @@ public class IPlaylistServiceImpl implements IPlaylistService{
     public Iterable<PlayList> findPlaylistByViews() {
         return  playlistRepository.findPlaylistsByViewsDesc();
     }
+
+    @Override
+    public PlayList findPlaylistById(Long id) {
+        return playlistRepository.findPlayListById(id);
+    }
 }

@@ -12,6 +12,8 @@ import javax.validation.Valid;
 import javax.xml.bind.SchemaOutputResolver;
 import java.net.Socket;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -36,7 +38,7 @@ public class SongController {
     @PostMapping()
     public ResponseEntity<Song> saveNewSong(@Valid @RequestBody Song song, BindingResult bindingResult){
         if (!bindingResult.hasFieldErrors()) {
-            song.setDateCreate(LocalDate.now());
+            song.setDateCreate(LocalDateTime.now());
             return new ResponseEntity<>(iSongService.save(song), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -83,7 +85,7 @@ public class SongController {
         currentSong.get().setUser(song.getUser());
         currentSong.get().setCategory(song.getCategory());
         currentSong.get().setAlbum(song.getAlbum());
-        currentSong.get().setDateCreate(LocalDate.now());
+        currentSong.get().setDateCreate(LocalDateTime.now());
         iSongService.save(currentSong.get());
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -96,7 +98,7 @@ public class SongController {
       return new ResponseEntity<>( iSongService.updateViews(id),HttpStatus.OK);
     }
 
-    @GetMapping("/mostviews")
+    @GetMapping("/most-views")
     public ResponseEntity<Iterable<Song>> findSongsByMostViews(){
         Iterable<Song> songs = iSongService.findSongsByMostViews();
         if (songs == null){
@@ -104,5 +106,34 @@ public class SongController {
         }
         return new ResponseEntity<>(songs, HttpStatus.OK);
     }
+    @GetMapping("/new-date")
+    public ResponseEntity<Iterable<Song>> findSongByDateNew(){
+        Iterable<Song> songs = iSongService.findSongsByDateNew();
+        if (songs == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(songs, HttpStatus.OK);
+    }
+    @GetMapping("/most-likes")
+    public ResponseEntity<Iterable<Song>> findSongByMostLike(){
+        Iterable<Song> songIterable = iSongService.findSongsByMostLike();
+        if (songIterable == null){
+            return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return  new ResponseEntity<>(songIterable, HttpStatus.OK);
+    }
 
+    @PostMapping("/search/{name}")
+    public ResponseEntity<Iterable<Song>> searchByName(@PathVariable String name ){
+        Iterable<Song> songs = iSongService.findAllByNameContaining(name);
+        return new ResponseEntity<>(songs,HttpStatus.OK);
+    }
+    @GetMapping("/date-new")
+    public ResponseEntity<Iterable<Song>> findSongsByDateNew(){
+        Iterable<Song> list = iSongService.findSongsByDateNew();
+        if (list == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return  new ResponseEntity<>(list, HttpStatus.OK);
+    }
 }

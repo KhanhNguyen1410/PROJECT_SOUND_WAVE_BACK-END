@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
+import java.util.List;
+
 
 @Repository
 public interface ISongRepository extends JpaRepository<Song, Long> {
@@ -24,4 +26,19 @@ public interface ISongRepository extends JpaRepository<Song, Long> {
 
     @Query(value = "select * from song s order by views desc limit 10", nativeQuery = true)
     Iterable<Song> findSongsByMostViews();
+
+    @Query(value = "select * from song s order by date_create desc limit 10", nativeQuery = true)
+    Iterable<Song> findSongsByDateNew();
+
+    @Query(value = "select s.* from song as s \n" +
+            "join (select ls.song_id as id, count(ls.user_id) as soluong from like_song as ls where ls.status=0 group by ls.song_id order by soluong desc)\n" +
+            " as ok on s.id= ok.id\n" +
+            "limit 10", nativeQuery = true)
+    Iterable<Song> findSongsByMostLike();
+    Iterable<Song> findAllByNameContaining(String name);
+
+    @Query(value = "select * from song " +
+            "order by song.date_create desc " +
+            "limit 10", nativeQuery = true)
+    Iterable<Song> findSongsByDateNewLimit10();
 }

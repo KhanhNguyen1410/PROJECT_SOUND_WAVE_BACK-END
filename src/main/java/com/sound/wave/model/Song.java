@@ -7,6 +7,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -23,7 +24,7 @@ public class Song {
     @NotEmpty(message = "trường này không được để trống")
     private String musician;
     private long views;
-    private LocalDate dateCreate;
+    private LocalDateTime dateCreate;
     @ManyToOne
     private Singer singer;
     @ManyToOne
