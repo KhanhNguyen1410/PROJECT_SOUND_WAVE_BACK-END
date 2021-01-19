@@ -128,4 +128,12 @@ public class SongController {
         }
         return  new ResponseEntity<>(list, HttpStatus.OK);
     }
+    @GetMapping("/category/{id}")
+    public ResponseEntity<Iterable<Song>> getSongsByCategoryId(@PathVariable("id") Long id){
+        Iterable<Song> songs = iSongService.findSongsByCategoryId(id);
+        if (songs != null){
+            return new ResponseEntity<>(songs, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
