@@ -29,7 +29,7 @@ public class ICommentPlaylistImpl implements ICommentPlaylist{
 
     @Override
     public Optional<CommentPlaylist> findById(Long id) {
-        return Optional.empty();
+        return commentPlaylistRepository.findById(id);
     }
 
     @Override
