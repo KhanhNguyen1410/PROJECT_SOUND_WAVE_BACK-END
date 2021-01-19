@@ -31,7 +31,7 @@ public interface ISongRepository extends JpaRepository<Song, Long> {
     Iterable<Song> findSongsByDateNew();
 
     @Query(value = "select s.* from song as s \n" +
-            "join (select ls.song_id as id, count(ls.user_id) as soluong from like_song as ls group by ls.song_id order by soluong desc)\n" +
+            "join (select ls.song_id as id, count(ls.user_id) as soluong from like_song as ls where ls.status=0 group by ls.song_id order by soluong desc)\n" +
             " as ok on s.id= ok.id\n" +
             "limit 10", nativeQuery = true)
     Iterable<Song> findSongsByMostLike();
