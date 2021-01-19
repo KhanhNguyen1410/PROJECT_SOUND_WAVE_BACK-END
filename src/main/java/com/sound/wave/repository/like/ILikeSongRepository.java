@@ -12,12 +12,11 @@ import javax.transaction.Transactional;
 @Repository
 public interface ILikeSongRepository extends JpaRepository<LikeSong, Long> {
     @Query(value = "select * from like_song as ls where song_id = :s_id and user_id = :u_id", nativeQuery = true)
-    Iterable<Song> findLikeSongByUserAndSong(@Param("s_id") long s_id, @Param("u_id") long u_id);
+    LikeSong checkLike(@Param("s_id") long s_id, @Param("u_id") long u_id);
 
     @Query(value = "select count(ls.user_id) as amount from like_song as ls \n" +
             "where ls.status= 0 and ls.song_id= ?1", nativeQuery = true)
     Long findLikeBySongId(Long id);
-    LikeSong checkLike(@Param("s_id") long s_id, @Param("u_id") long u_id);
     @Transactional
     @Modifying
     @Query(value = "UPDATE like_song ls set status = 1 where ls.id = :id", nativeQuery = true)
