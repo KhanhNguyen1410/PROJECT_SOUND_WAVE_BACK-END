@@ -18,11 +18,11 @@ public class PlayList {
     private Long id;
     @NotEmpty
     private String name;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
     private String description;
     private LocalDateTime dateCreate;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
     private LocalDateTime timeUpdate;
     private Long views;
