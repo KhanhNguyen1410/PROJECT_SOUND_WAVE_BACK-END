@@ -12,7 +12,8 @@ public class LikeSong {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(columnDefinition = "boolean default false")
+    private boolean status;
     @ManyToOne
     private User user;
 
