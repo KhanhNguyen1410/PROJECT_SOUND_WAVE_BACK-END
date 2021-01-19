@@ -24,17 +24,16 @@ public class ICommentPlaylistImpl implements ICommentPlaylist{
 
     @Override
     public CommentPlaylist save(CommentPlaylist commentPlaylist) {
-        return null;
+        return commentPlaylistRepository.save(commentPlaylist);
     }
 
     @Override
     public Optional<CommentPlaylist> findById(Long id) {
-        return Optional.empty();
+        return commentPlaylistRepository.findById(id);
     }
 
     @Override
     public void remove(Long id) {
-
     }
 }
 

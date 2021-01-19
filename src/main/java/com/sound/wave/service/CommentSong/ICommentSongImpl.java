@@ -14,17 +14,17 @@ public class ICommentSongImpl implements ICommentSong{
 
     @Override
     public Iterable<CommentSong> findAll() {
-        return null;
+        return commentSongRepository.findAll();
     }
 
     @Override
     public CommentSong save(CommentSong commentSong) {
-        return null;
+        return commentSongRepository.save(commentSong);
     }
 
     @Override
     public Optional<CommentSong> findById(Long id) {
-        return Optional.empty();
+        return commentSongRepository.findById(id);
     }
 
     @Override

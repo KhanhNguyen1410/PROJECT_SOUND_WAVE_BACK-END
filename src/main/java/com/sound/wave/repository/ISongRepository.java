@@ -41,4 +41,7 @@ public interface ISongRepository extends JpaRepository<Song, Long> {
             "order by song.date_create desc " +
             "limit 10", nativeQuery = true)
     Iterable<Song> findSongsByDateNewLimit10();
+
+    @Query(value = "SELECT * FROM song as s where s.category_id= :id", nativeQuery = true)
+    Iterable<Song> findSongsByCategoryId(@Param("id") Long id);
 }

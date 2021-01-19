@@ -65,6 +65,11 @@ public class ISongServiceIPL implements ISongService {
     }
 
     @Override
+    public Iterable<Song> findSongsByCategoryId(Long id) {
+        return iSongRepository.findSongsByCategoryId(id);
+    }
+
+    @Override
     public Iterable<Song> findSongsByDateNew() {
         return iSongRepository.findSongsByDateNew();
     }

@@ -21,4 +21,14 @@ public class CommentPlaylist {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private PlayList playList;
+
+    public CommentPlaylist(String comment, LocalDateTime dateTime, User user, PlayList playList) {
+        this.comment = comment;
+        this.dateTime = dateTime;
+        this.user = user;
+        this.playList = playList;
+    }
+    public CommentPlaylist() {
+
+    }
 }
