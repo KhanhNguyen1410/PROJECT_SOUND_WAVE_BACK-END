@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import javax.xml.bind.SchemaOutputResolver;
 import java.net.Socket;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestController
@@ -36,7 +37,7 @@ public class SongController {
     @PostMapping()
     public ResponseEntity<Song> saveNewSong(@Valid @RequestBody Song song, BindingResult bindingResult){
         if (!bindingResult.hasFieldErrors()) {
-            song.setDateCreate(LocalDate.now());
+            song.setDateCreate(LocalDateTime.now());
             return new ResponseEntity<>(iSongService.save(song), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -75,7 +76,7 @@ public class SongController {
         currentSong.get().setUser(song.getUser());
         currentSong.get().setCategory(song.getCategory());
         currentSong.get().setAlbum(song.getAlbum());
-        currentSong.get().setDateCreate(LocalDate.now());
+        currentSong.get().setDateCreate(LocalDateTime.now());
         iSongService.save(currentSong.get());
         return new ResponseEntity<>(HttpStatus.OK);
     }
