@@ -12,4 +12,7 @@ public interface IPlaylistRepository extends JpaRepository< PlayList, Long> {
     @Query(value = "select * from play_list as p order by views limit 10", nativeQuery = true)
     Iterable<PlayList> findPlaylistsByViewsDesc();
 
+
+
+
 }
