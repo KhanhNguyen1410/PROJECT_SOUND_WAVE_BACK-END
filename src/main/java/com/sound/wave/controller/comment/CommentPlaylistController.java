@@ -35,7 +35,7 @@ public class CommentPlaylistController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         commentPlaylist1.setDateTime(LocalDateTime.now());
-        return new ResponseEntity<>(iCommentPlaylist.save(commentPlaylist1), HttpStatus.OK);
+        return new ResponseEntity<>(iCommentPlaylist.save(commentPlaylist1),HttpStatus.OK);
     }
     @GetMapping("/{id}")
     public ResponseEntity<CommentPlaylist> getPlaylistById(@PathVariable("id") Long id){

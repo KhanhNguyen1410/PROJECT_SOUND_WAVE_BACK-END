@@ -24,7 +24,7 @@ public class ICommentPlaylistImpl implements ICommentPlaylist{
 
     @Override
     public CommentPlaylist save(CommentPlaylist commentPlaylist) {
-        return null;
+        return commentPlaylistRepository.save(commentPlaylist);
     }
 
     @Override
@@ -34,7 +34,6 @@ public class ICommentPlaylistImpl implements ICommentPlaylist{
 
     @Override
     public void remove(Long id) {
-
     }
 }
 
