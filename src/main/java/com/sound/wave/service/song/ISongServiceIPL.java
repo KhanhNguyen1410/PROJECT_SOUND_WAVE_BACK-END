@@ -60,6 +60,11 @@ public class ISongServiceIPL implements ISongService {
     }
 
     @Override
+    public Iterable<Song> findSongsByDateNewLimit10() {
+        return iSongRepository.findSongsByDateNewLimit10();
+    }
+
+    @Override
     public Iterable<Song> findSongsByDateNew() {
         return iSongRepository.findSongsByDateNew();
     }
