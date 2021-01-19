@@ -30,4 +30,9 @@ public class ILikeSongServiceIPL implements ILikeSongService {
     public void remove(Long id) {
             iLikeSongRepository.deleteById(id);
     }
+
+    @Override
+    public Long findLikeBySongId(Long id) {
+        return  iLikeSongRepository.findLikeBySongId(id);
+    }
 }
