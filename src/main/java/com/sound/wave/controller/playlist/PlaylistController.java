@@ -41,6 +41,7 @@ public class PlaylistController {
         }
         playList.setDateCreate(LocalDateTime.now());
         playList.setTimeUpdate(LocalDateTime.now());
+        playList.setViews((long) 0);
         return new ResponseEntity<>(playlistService.save(playList),HttpStatus.OK);
     }
     @GetMapping("/{id}")
