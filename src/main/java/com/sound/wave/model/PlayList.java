@@ -26,6 +26,4 @@ public class PlayList {
     private User user;
     private LocalDateTime timeUpdate;
     private Long views;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Song> songs;
 }
