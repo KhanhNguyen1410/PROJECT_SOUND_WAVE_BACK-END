@@ -57,7 +57,13 @@ public class PlaylistController {
         playlistService.save(playList1);
         return new ResponseEntity<>(playList1,HttpStatus.OK);
     }
-
-
+    @GetMapping("/user/{id}")
+    public ResponseEntity<Iterable<PlayList>> getPlaylistByUserId(@PathVariable("id") Long id){
+        Iterable<PlayList> playLists = playlistService.findPlaylistsByUserId(id);
+        if (playLists == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(playLists, HttpStatus.OK);
+    }
 
 }
