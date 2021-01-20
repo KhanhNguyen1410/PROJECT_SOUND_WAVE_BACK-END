@@ -49,4 +49,11 @@ public interface ISongRepository extends JpaRepository<Song, Long> {
             "where song.id in ( select ls.song_id from like_song as ls \n" +
             "where ls.user_id =?1 and ls.status= 0)", nativeQuery = true)
     Iterable<Song> findSongsByUserIdAndStatus(Long id);
+
+    @Modifying
+    @Query(value = "select s.* from song as s \n" +
+            "            join song_playlist as sp on s.id = sp.song_id \n" +
+            "            join play_list as p on p.id = sp.play_list_id \n" +
+            "            where p.id = :id", nativeQuery = true)
+    List<Song> findSongsByPlaylistID(@Param("id") Long id);
 }
