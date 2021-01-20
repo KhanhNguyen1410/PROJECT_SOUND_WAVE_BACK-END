@@ -20,5 +20,4 @@ public interface IPlaylistRepository extends JpaRepository< PlayList, Long> {
     @Query(value = "select * from play_list as pl where pl.user_id = ?1", nativeQuery = true)
     Iterable<PlayList> findPlaylistByUserId(Long id);
 
-
 }
