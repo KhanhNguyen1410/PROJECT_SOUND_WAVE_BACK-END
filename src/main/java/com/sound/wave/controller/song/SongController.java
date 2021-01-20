@@ -1,6 +1,8 @@
 package com.sound.wave.controller.song;
 
+import com.sound.wave.model.Category;
 import com.sound.wave.model.Song;
+import com.sound.wave.service.category.ICategoryService;
 import com.sound.wave.service.song.ISongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,8 @@ public class SongController {
 
     @Autowired
     private ISongService iSongService;
+    @Autowired
+    private ICategoryService iCategoryService;
     // lay all song
     @GetMapping()
     public ResponseEntity<Iterable<Song>> findAllSong(){
@@ -136,6 +140,7 @@ public class SongController {
         }
         return  new ResponseEntity<>(list, HttpStatus.OK);
     }
+
     @GetMapping("/category/{id}")
     public ResponseEntity<Iterable<Song>> getSongsByCategoryId(@PathVariable("id") Long id){
         Iterable<Song> songs = iSongService.findSongsByCategoryId(id);
@@ -143,5 +148,14 @@ public class SongController {
             return new ResponseEntity<>(songs, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/all-like/{id}")
+    public ResponseEntity<Iterable<Song>> getAllSongsByUserLike(@PathVariable("id") Long id){
+        Iterable<Song> songs = iSongService.findAllSongsByUserIdLike(id);
+        if (songs == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(songs,HttpStatus.OK);
     }
 }

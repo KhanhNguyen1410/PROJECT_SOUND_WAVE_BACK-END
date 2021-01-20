@@ -44,4 +44,9 @@ public interface ISongRepository extends JpaRepository<Song, Long> {
 
     @Query(value = "SELECT * FROM song as s where s.category_id= :id", nativeQuery = true)
     Iterable<Song> findSongsByCategoryId(@Param("id") Long id);
+
+    @Query(value = "select * from song \n" +
+            "where song.id in ( select ls.song_id from like_song as ls \n" +
+            "where ls.user_id =?1 and ls.status= 0)", nativeQuery = true)
+    Iterable<Song> findSongsByUserIdAndStatus(Long id);
 }

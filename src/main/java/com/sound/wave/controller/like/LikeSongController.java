@@ -37,11 +37,13 @@ public class LikeSongController {
     public ResponseEntity<LikeSong> likeSong(@PathVariable("s_id") long s_id, @PathVariable("u_id") long u_id){
         LikeSong likeSong = iLikeSongService.findLikeSongByUserAndSong(s_id,u_id);
         if (likeSong == null){
+            LikeSong likeSong1 = new LikeSong();
             Song song = iSongService.findById(s_id).get();
             User user = iUserService.findById(u_id).get();
-            likeSong.setSong(song);
-            likeSong.setUser(user);
-            return  new ResponseEntity<>(iLikeSongService.save(likeSong), HttpStatus.OK);
+            likeSong1.setSong(song);
+            likeSong1.setUser(user);
+            iLikeSongService.save(likeSong1);
+            return  new ResponseEntity<>(likeSong1, HttpStatus.OK);
         }
         else if (!likeSong.isStatus()){
             likeSong.setStatus(true);
