@@ -42,12 +42,12 @@ public class PlaylistController {
         }
         return new ResponseEntity<>(playList, HttpStatus.OK);
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<PlayList> updatePlaylist( @PathVariable("id") Long id,@Valid @RequestBody PlayList playList,BindingResult bindingResult){
+    @PutMapping("/{id}/{id1}")
+    public ResponseEntity<PlayList> updatePlaylist( @PathVariable("id") Long id, @PathVariable("id1") Long id1,@Valid @RequestBody PlayList playList,BindingResult bindingResult){
         if (bindingResult.hasErrors()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        PlayList playList1= playlistService.findById(id).get();
+        PlayList playList1= playlistService.findPlaylistByIdAndUserId(id, id1);
         if (playList1 == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

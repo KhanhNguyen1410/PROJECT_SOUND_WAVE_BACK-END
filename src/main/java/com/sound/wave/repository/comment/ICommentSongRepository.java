@@ -12,6 +12,4 @@ public interface ICommentSongRepository extends JpaRepository<CommentSong, Long>
     @Modifying
     @Query(value = "select * from comment_song as cs where cs.song_id= :id", nativeQuery = true)
     Iterable<CommentSong> findCommentSongsBySongId(@Param("id")Long id);
-
-
 }

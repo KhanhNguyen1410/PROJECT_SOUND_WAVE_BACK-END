@@ -14,7 +14,6 @@ public interface IPlaylistRepository extends JpaRepository< PlayList, Long> {
 
     PlayList findPlayListById(Long id);
 
-
-
-
+    @Query(value = "select * from play_list as pl where pl.id=?1 and pl.user_id=?2", nativeQuery = true)
+    PlayList findPlaylistByIdAndUserId(Long id, Long id1);
 }
