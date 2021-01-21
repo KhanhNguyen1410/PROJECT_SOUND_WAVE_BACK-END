@@ -19,7 +19,7 @@ public class ICommentPlaylistImpl implements ICommentPlaylist{
 
     @Override
     public Iterable<CommentPlaylist> findAll() {
-        return null;
+        return commentPlaylistRepository.findAll();
     }
 
     @Override

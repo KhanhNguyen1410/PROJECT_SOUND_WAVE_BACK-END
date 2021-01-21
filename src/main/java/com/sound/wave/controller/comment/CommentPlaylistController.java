@@ -45,4 +45,9 @@ public class CommentPlaylistController {
         }
         return new ResponseEntity<>(commentPlaylist, HttpStatus.OK);
     }
+    @GetMapping()
+    public ResponseEntity<Iterable<CommentPlaylist>> getAll(){
+        Iterable<CommentPlaylist> playlists = iCommentPlaylist.findAll();
+        return new ResponseEntity<>(playlists, HttpStatus.OK);
+    }
 }
