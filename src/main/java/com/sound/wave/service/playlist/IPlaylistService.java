@@ -8,4 +8,5 @@ public interface IPlaylistService extends IGeneralService<PlayList> {
     PlayList findPlaylistById(Long id);
     PlayList findPlaylistByIdAndUserId(Long id, Long id1);
     Iterable<PlayList> findPlaylistsByUserId(Long id);
+    Iterable<PlayList> findPlaylistNewUpdate();
 }
