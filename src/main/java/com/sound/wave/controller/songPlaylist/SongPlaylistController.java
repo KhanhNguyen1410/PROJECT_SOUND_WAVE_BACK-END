@@ -79,4 +79,15 @@ public class SongPlaylistController {
        songPlaylist.setSong(song);
         return new ResponseEntity<>(songPlaylistService.save(songPlaylist), HttpStatus.OK);
     }
+    @PostMapping("/check-song/{id}")
+    public ResponseEntity<Boolean> checkSongInPlaylist(@PathVariable("id") Long id, @RequestBody Song song){
+        Iterable<Song> songs = songService.findSongsByPlaylistId(id);
+        for (Song song1: songs){
+            if (song.getId() == song1.getId()){
+                return new ResponseEntity<>(false,HttpStatus.CONFLICT);
+            }
+        }
+        return new ResponseEntity<>(true, HttpStatus.OK);
+    }
+    
 }
