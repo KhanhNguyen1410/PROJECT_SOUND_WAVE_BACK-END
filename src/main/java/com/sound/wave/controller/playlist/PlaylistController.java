@@ -84,5 +84,4 @@ public class PlaylistController {
         }
         return  new ResponseEntity<>(lists, HttpStatus.OK);
     }
-
 }
