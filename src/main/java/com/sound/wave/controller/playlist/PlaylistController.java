@@ -17,6 +17,15 @@ import java.time.LocalDateTime;
 public class PlaylistController {
     @Autowired
     private IPlaylistService playlistService;
+
+    @GetMapping()
+    public ResponseEntity<Iterable<PlayList>> getAllPlaylist(){
+        Iterable<PlayList> lists = playlistService.findAll();
+        if (lists == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(lists, HttpStatus.OK);
+    }
     @GetMapping("/mostviews")
     public ResponseEntity<Iterable<PlayList>> getPlaylistsByViews(){
         Iterable<PlayList> lists = playlistService.findPlaylistByViews();
@@ -32,6 +41,7 @@ public class PlaylistController {
         }
         playList.setDateCreate(LocalDateTime.now());
         playList.setTimeUpdate(LocalDateTime.now());
+        playList.setViews((long) 0);
         return new ResponseEntity<>(playlistService.save(playList),HttpStatus.OK);
     }
     @GetMapping("/{id}")
