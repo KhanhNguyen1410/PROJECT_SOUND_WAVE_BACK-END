@@ -76,4 +76,13 @@ public class PlaylistController {
         return new ResponseEntity<>(playLists, HttpStatus.OK);
     }
 
+    @GetMapping("/date-new")
+    public ResponseEntity<Iterable<PlayList>> getAllPlaylistNew(){
+        Iterable<PlayList> lists = playlistService.findPlaylistNewUpdate();
+        if (lists == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return  new ResponseEntity<>(lists, HttpStatus.OK);
+    }
+
 }
