@@ -76,6 +76,7 @@ public class SongController {
         currentSong.get().setName(song.getName());
         currentSong.get().setDescription(song.getDescription());
         currentSong.get().setAvatar(song.getAvatar());
+        currentSong.get().setUrlMp3(song.getUrlMp3());
         currentSong.get().setMusician(song.getMusician());
         currentSong.get().setSinger(song.getSinger());
         currentSong.get().setUser(song.getUser());
