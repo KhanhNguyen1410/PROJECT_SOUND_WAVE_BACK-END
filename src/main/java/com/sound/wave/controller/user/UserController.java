@@ -36,16 +36,16 @@ public class UserController {
         return new ResponseEntity<>(iUserService.findUserByUsername(username), HttpStatus.OK);
     }
 
-    @PostMapping()
-    public ResponseEntity<User> create(@RequestBody User user) {
-        Role role = iRoleService.findRoleByName("ROLE_USER");
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-        user.setRoles(roles);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        iUserService.save(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+//    @PostMapping()
+//    public ResponseEntity<User> create(@RequestBody User user) {
+//        Role role = iRoleService.findRoleByName("ROLE_USER");
+//        Set<Role> roles = new HashSet<>();
+//        roles.add(role);
+//        user.setRoles(roles);
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        iUserService.save(user);
+//        return new ResponseEntity<>(HttpStatus.CREATED);
+//    }
 
     @PutMapping("/update")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
