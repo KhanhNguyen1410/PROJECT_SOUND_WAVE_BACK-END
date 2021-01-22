@@ -19,7 +19,7 @@ public class ILikePlaylistServiceImpl implements ILikePlaylistService{
 
     @Override
     public LikePlaylist save(LikePlaylist likePlaylist) {
-        return null;
+        return iLikePlaylistRepository.save(likePlaylist);
     }
 
     @Override
