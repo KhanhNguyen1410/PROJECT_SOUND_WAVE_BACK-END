@@ -62,7 +62,7 @@ public class LikePlaylistController {
         }
         return new ResponseEntity<>(playlists,HttpStatus.OK);
     }
-    @GetMapping("/{id}")
+    @GetMapping("/like/{id}")
     public ResponseEntity<Long> getLikesByPlaylistId(@PathVariable("id") Long id){
         Long number = service.findLikeByPlaylistId(id);
         if (number == null){

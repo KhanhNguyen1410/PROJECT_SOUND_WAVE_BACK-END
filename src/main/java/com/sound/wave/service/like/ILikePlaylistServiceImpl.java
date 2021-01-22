@@ -14,17 +14,17 @@ public class ILikePlaylistServiceImpl implements ILikePlaylistService{
     private ILikePlaylistRepository iLikePlaylistRepository;
     @Override
     public Iterable<LikePlaylist> findAll() {
-        return null;
+        return iLikePlaylistRepository.findAll();
     }
 
     @Override
     public LikePlaylist save(LikePlaylist likePlaylist) {
-        return null;
+        return iLikePlaylistRepository.save(likePlaylist);
     }
 
     @Override
     public Optional<LikePlaylist> findById(Long id) {
-        return Optional.empty();
+        return iLikePlaylistRepository.findById(id);
     }
 
     @Override
