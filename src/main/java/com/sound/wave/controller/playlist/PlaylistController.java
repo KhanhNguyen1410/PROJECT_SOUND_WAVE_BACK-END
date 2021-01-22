@@ -84,4 +84,12 @@ public class PlaylistController {
         }
         return  new ResponseEntity<>(lists, HttpStatus.OK);
     }
+    @GetMapping("/all-like/{id}")
+    public ResponseEntity<Iterable<PlayList>> getAllPlaylistsByUserLike(@PathVariable("id") Long id){
+        Iterable<PlayList> playlists = playlistService.findPlaylistsByUserIdAndStatus(id);
+        if (playlists == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(playlists,HttpStatus.OK);
+    }
 }

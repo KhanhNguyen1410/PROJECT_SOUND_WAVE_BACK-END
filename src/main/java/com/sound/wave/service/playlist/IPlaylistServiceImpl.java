@@ -55,4 +55,9 @@ public class IPlaylistServiceImpl implements IPlaylistService{
     public Iterable<PlayList> findPlaylistNewUpdate() {
         return playlistRepository.findPlaylistNewUpdate();
     }
+
+    @Override
+    public Iterable<PlayList> findPlaylistsByUserIdAndStatus(Long id) {
+        return playlistRepository.findPlaylistsByUserIdAndStatus(id);
+    }
 }
