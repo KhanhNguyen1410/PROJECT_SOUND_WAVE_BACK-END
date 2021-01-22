@@ -17,9 +17,6 @@ public interface ILikePlaylistRepository extends JpaRepository<LikePlaylist, Lon
     @Query(value = "select * from like_playlist as lp where lp.play_list_id = :p_id and lp.user_id = :u_id", nativeQuery = true)
     LikePlaylist checkLikePlaylist(@Param("p_id") long p_id, @Param("u_id") long u_id);
 
-    @Query(value = "select * from play_list as pl \n" +
-            "where pl.id in ( select ls.play_list_id from like_playlist as ls \n" +
-            "where ls.user_id =?1 and ls.status= 0)", nativeQuery = true)
-    Iterable<PlayList> findPlaylistsByUserIdAndStatus(Long id);
+
 
 }

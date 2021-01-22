@@ -42,8 +42,4 @@ public class ILikePlaylistServiceImpl implements ILikePlaylistService{
         return iLikePlaylistRepository.checkLikePlaylist(p_id, u_id);
     }
 
-    @Override
-    public Iterable<PlayList> findPlaylistsByUserIdAndStatus(Long id) {
-        return iLikePlaylistRepository.findPlaylistsByUserIdAndStatus(id);
-    }
 }

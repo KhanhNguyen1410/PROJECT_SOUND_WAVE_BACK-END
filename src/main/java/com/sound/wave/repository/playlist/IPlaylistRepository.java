@@ -22,5 +22,8 @@ public interface IPlaylistRepository extends JpaRepository< PlayList, Long> {
 
     @Query(value = "select * from play_list as pl order by time_update desc limit 10", nativeQuery = true)
     Iterable<PlayList> findPlaylistNewUpdate();
-
+    @Query(value = "select * from play_list as pl \n" +
+            "where pl.id in ( select ls.play_list_id from like_playlist as ls \n" +
+            "where ls.user_id =?1 and ls.status= 0)", nativeQuery = true)
+    Iterable<PlayList> findPlaylistsByUserIdAndStatus(Long id);
 }
