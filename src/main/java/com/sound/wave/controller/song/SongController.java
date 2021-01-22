@@ -48,12 +48,12 @@ public class SongController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Song>> findSongById(@PathVariable("id") Long id){
-        Optional<Song> songOptional = iSongService.findById(id);
-        if (songOptional.get() == null){
+    public ResponseEntity<Song> findSongById(@PathVariable("id") Long id){
+        Song songOptional = iSongService.findById(id).get();
+        if (songOptional == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Optional<Song>>(songOptional,HttpStatus.OK);
+        return new ResponseEntity<>(songOptional,HttpStatus.OK);
     }
 //    @GetMapping("/{id}")
 //    public ResponseEntity<Optional<Song>> findSongById(@PathVariable("id") Long id){
@@ -158,5 +158,14 @@ public class SongController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(songs,HttpStatus.OK);
+    }
+
+    @GetMapping("/sub/{id}")
+    public ResponseEntity<Iterable<Song>> getSongsBySubId(@PathVariable("id")Long id){
+        Iterable<Song> songs = iSongService.findSongsBySubId(id);
+        if (songs == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(songs, HttpStatus.OK);
     }
 }
