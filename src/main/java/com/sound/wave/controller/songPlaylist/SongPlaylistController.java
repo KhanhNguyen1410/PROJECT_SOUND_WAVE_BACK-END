@@ -70,7 +70,7 @@ public class SongPlaylistController {
        Iterable<Song> songs = songService.findSongsByPlaylistId(id);
        for(Song song1: songs){
            if (song1.getId() == song.getId() ){
-               return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+               return new ResponseEntity<>(HttpStatus.NO_CONTENT);
        }
        }
         PlayList playList = playlistService.findPlaylistById(id);
@@ -78,5 +78,15 @@ public class SongPlaylistController {
        songPlaylist.setPlayList(playList);
        songPlaylist.setSong(song);
         return new ResponseEntity<>(songPlaylistService.save(songPlaylist), HttpStatus.OK);
+    }
+    @PostMapping("/check-song/{id}")
+    public ResponseEntity<Boolean> checkSongInPlaylist(@PathVariable("id") Long id, @RequestBody Song song){
+        Iterable<Song> songs = songService.findSongsByPlaylistId(id);
+        for (Song song1: songs){
+            if (song.getId() == song1.getId()){
+                return new ResponseEntity<>(false, HttpStatus.NO_CONTENT);
+            }
+        }
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 }

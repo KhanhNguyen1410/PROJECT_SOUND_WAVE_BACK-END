@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IPlaylistRepository extends JpaRepository< PlayList, Long> {
     @Modifying
-    @Query(value = "select * from play_list as p order by views limit 10", nativeQuery = true)
+    @Query(value = "select * from play_list as p order by views desc limit 10", nativeQuery = true)
     Iterable<PlayList> findPlaylistsByViewsDesc();
 
     PlayList findPlayListById(Long id);
@@ -19,5 +19,8 @@ public interface IPlaylistRepository extends JpaRepository< PlayList, Long> {
 
     @Query(value = "select * from play_list as pl where pl.user_id = ?1", nativeQuery = true)
     Iterable<PlayList> findPlaylistByUserId(Long id);
+
+    @Query(value = "select * from play_list as pl order by time_update desc limit 10", nativeQuery = true)
+    Iterable<PlayList> findPlaylistNewUpdate();
 
 }

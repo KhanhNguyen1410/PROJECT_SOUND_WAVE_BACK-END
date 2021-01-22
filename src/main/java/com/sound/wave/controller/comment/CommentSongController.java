@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 
 @RestController
 @CrossOrigin("*")
@@ -38,6 +39,7 @@ public class CommentSongController {
         if (bindingResult.hasErrors()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+        commentSong.setDateTime(LocalDateTime.now());
         return new ResponseEntity<>(iCommentSong.save(commentSong), HttpStatus.OK);
     }
 }

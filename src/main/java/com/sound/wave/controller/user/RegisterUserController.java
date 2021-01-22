@@ -34,6 +34,7 @@ public class RegisterUserController {
             Set<Role> roles = new HashSet<>();
             roles.add(role);
             user.setRoles(roles);
+            user.setAvatar("https://iupac.org/wp-content/uploads/2018/05/default-avatar.png");
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             if (iUserService.checkUser(user.getUsername())) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);

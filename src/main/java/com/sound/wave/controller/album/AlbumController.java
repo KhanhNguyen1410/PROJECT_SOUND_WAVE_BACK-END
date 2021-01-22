@@ -20,6 +20,10 @@ public class AlbumController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<Album> getAlbum(@PathVariable long id) {
-        return new ResponseEntity<>(iAlbumService.findById(id).get(), HttpStatus.OK);
+        Album album = iAlbumService.findById(id).get();
+        if (album == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(album, HttpStatus.OK);
     }
 }
