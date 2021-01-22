@@ -29,7 +29,7 @@ public class ILikePlaylistServiceImpl implements ILikePlaylistService{
 
     @Override
     public void remove(Long id) {
-
+        iLikePlaylistRepository.deleteById(id);
     }
 
     @Override
