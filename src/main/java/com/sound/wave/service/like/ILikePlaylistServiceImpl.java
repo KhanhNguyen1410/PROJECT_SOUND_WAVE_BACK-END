@@ -14,7 +14,7 @@ public class ILikePlaylistServiceImpl implements ILikePlaylistService{
     private ILikePlaylistRepository iLikePlaylistRepository;
     @Override
     public Iterable<LikePlaylist> findAll() {
-        return null;
+        return iLikePlaylistRepository.findAll();
     }
 
     @Override
@@ -29,7 +29,7 @@ public class ILikePlaylistServiceImpl implements ILikePlaylistService{
 
     @Override
     public void remove(Long id) {
-
+        iLikePlaylistRepository.deleteById(id);
     }
 
     @Override
