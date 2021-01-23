@@ -18,4 +18,5 @@ public interface ISongService extends IGeneralService<Song> {
     Iterable<Song> findAllSongsByUserIdLike(Long id);
     Iterable<Song> findSongsByPlaylistId(Long id);
     Iterable<Song> findSongsBySubId(Long id);
+    Iterable<Song> findSongsHaveNotInPlaylist(Long id);
 }

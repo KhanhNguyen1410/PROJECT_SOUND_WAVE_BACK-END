@@ -58,4 +58,12 @@ public interface ISongRepository extends JpaRepository<Song, Long> {
     List<Song> findSongsByPlaylistID(@Param("id") Long id);
     @Query(value = "SELECT * from song as s where not s.id= ?1 ", nativeQuery = true)
     Iterable<Song> findSongsBySubId(Long id);
+
+    @Query(value = "select * from song as s where s.id not in (select s.id from song as s \n" +
+            "                    join song_playlist as sp on s.id = sp.song_id \n" +
+            "                        join play_list as p on p.id = sp.play_list_id \n" +
+            "                        where p.id = ?1)", nativeQuery = true)
+    Iterable<Song> findSongsHaveNotInPlaylist(Long id);
+
+
 }
