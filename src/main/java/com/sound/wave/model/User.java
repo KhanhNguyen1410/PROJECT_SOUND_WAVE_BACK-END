@@ -16,17 +16,17 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotEmpty(message = "please enter username")
-    @Size(min = 2, max = 20, message = "Username length from 2 to 20 characters")
+//    @NotEmpty(message = "please enter username")
+//    @Size(min = 2, max = 20, message = "Username length from 2 to 20 characters")
     private String username;
-    @NotEmpty(message = "please enter password")
+//    @NotEmpty(message = "please enter password")
     private String password;
     private String comfirmPassword;
-    @NotEmpty(message = "please enter your phone number")
+//    @NotEmpty(message = "please enter your phone number")
     private String phoneNumber;
-    @Size(max = 30, message = "max is 30 word")
+//    @Size(max = 30, message = "max is 30 word")
     private String fullName;
-    @Size(max = 30, message = "max is 30 word")
+//    @Size(max = 30, message = "max is 30 word")
     private String address;
     private String email;
     private String avatar;
