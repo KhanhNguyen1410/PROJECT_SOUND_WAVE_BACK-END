@@ -168,4 +168,12 @@ public class SongController {
         }
         return new ResponseEntity<>(songs, HttpStatus.OK);
     }
+    @GetMapping("/have-not/{id}")
+    public ResponseEntity<Iterable<Song>> getSongsHaveNotInPlaylist(@PathVariable("id")Long id){
+        Iterable<Song> songs = iSongService.findSongsHaveNotInPlaylist(id);
+        if (songs == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(songs, HttpStatus.OK);
+    }
 }
