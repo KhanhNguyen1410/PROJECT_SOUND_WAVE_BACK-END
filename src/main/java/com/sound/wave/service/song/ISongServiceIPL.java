@@ -89,7 +89,12 @@ public class ISongServiceIPL implements ISongService {
         return iSongRepository.findSongsHaveNotInPlaylist(id);
     }
 
-    @Override
+  @Override
+  public Iterable<Song> findSongsByCategoryName(String name) {
+    return iSongRepository.findSongsByCategoryName(name);
+  }
+
+  @Override
     public Iterable<Song> findSongsByDateNew() {
         return iSongRepository.findSongsByDateNew();
     }

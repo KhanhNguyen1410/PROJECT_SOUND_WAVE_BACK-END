@@ -143,6 +143,15 @@ public class SongController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+  @GetMapping("/category/{name}")
+  public ResponseEntity<Iterable<Song>> getSongsByCategoryName(@PathVariable("name") String name){
+    Iterable<Song> songs = iSongService.findSongsByCategoryName(name);
+    if (songs != null){
+      return new ResponseEntity<>(songs, HttpStatus.OK);
+    }
+    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+  }
+
     @GetMapping("/all-like/{id}")
     public ResponseEntity<Iterable<Song>> getAllSongsByUserLike(@PathVariable("id") Long id){
         Iterable<Song> songs = iSongService.findAllSongsByUserIdLike(id);
