@@ -1,6 +1,7 @@
 package com.sound.wave.controller.playlist;
 
 import com.sound.wave.model.PlayList;
+import com.sound.wave.model.Song;
 import com.sound.wave.service.playlist.IPlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -91,5 +92,9 @@ public class PlaylistController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(playlists,HttpStatus.OK);
+    }
+    @PostMapping("/count-views/{id}")
+    public ResponseEntity<PlayList> countViews(@PathVariable long id){
+        return new ResponseEntity<>( playlistService.updateViews(id),HttpStatus.OK);
     }
 }
