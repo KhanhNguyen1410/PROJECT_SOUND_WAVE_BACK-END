@@ -1,6 +1,7 @@
 package com.sound.wave.service.playlist;
 
 import com.sound.wave.model.PlayList;
+import com.sound.wave.model.Song;
 import com.sound.wave.service.IGeneralService;
 
 public interface IPlaylistService extends IGeneralService<PlayList> {
@@ -10,5 +11,6 @@ public interface IPlaylistService extends IGeneralService<PlayList> {
     Iterable<PlayList> findPlaylistsByUserId(Long id);
     Iterable<PlayList> findPlaylistNewUpdate();
     Iterable<PlayList> findPlaylistsByUserIdAndStatus(Long id);
+    PlayList updateViews(Long id);
 
 }
