@@ -65,4 +65,9 @@ public class IUserServiceIPL implements IUserService {
             return false;
         }
     }
+
+    @Override
+    public User findByEmail(String email) {
+        return iUserRepository.findByEmail(email);
+    }
 }

@@ -8,4 +8,5 @@ public interface IUserService extends IGeneralService<User>, UserDetailsService 
     User findUserByUsername(String username);
     boolean checkUser(String username);
     boolean checkPassword(String username, String password);
+    User findByEmail(String email);
 }

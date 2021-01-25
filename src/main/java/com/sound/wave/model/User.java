@@ -17,7 +17,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NotEmpty(message = "please enter username")
-    @Size(min = 2, max = 20, message = "Username length from 2 to 20 characters")
+    @Size(min = 2, max = 50, message = "Username length from 2 to 20 characters")
     private String username;
     @NotEmpty(message = "please enter password")
     private String password;
