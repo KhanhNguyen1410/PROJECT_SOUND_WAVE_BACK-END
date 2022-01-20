@@ -9,6 +9,6 @@ public class AppController {
     @RequestMapping("/")
     @ResponseBody
     String home() {
-        return "Hello World !!!";
+        return "Welcome to Soundwave !!!";
     }
 }
